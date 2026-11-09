@@ -1,0 +1,2 @@
+-- Semilla local (supabase db reset). Los datos obligatorios (permisos, ajustes, "Varios") están en
+-- las migraciones. Para la demo con productos y ventas de ejemplo usar seed-demo.sql.

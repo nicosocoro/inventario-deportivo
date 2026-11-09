@@ -1,0 +1,84 @@
+# ─── Dependencias ───────────────────────────────────────────────
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+!.yarn/releases
+.pnp.*
+
+# ─── Build (Vite: dist/ventas y dist/admin) ─────────────────────
+dist/
+dist-ssr/
+*.tsbuildinfo
+.vite/
+vite.config.ts.timestamp-*
+vite.config.*.timestamp-*
+
+# PWA (vite-plugin-pwa en modo dev)
+dev-dist/
+
+# ─── Variables de entorno / secretos ────────────────────────────
+# Solo se versiona .env.example. Nunca commitear SUPABASE_SECRET_KEY.
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+
+# ─── Supabase CLI (workdir: src/server) ─────────────────────────
+src/server/supabase/.branches/
+src/server/supabase/.temp/
+src/server/supabase/.env
+src/server/supabase/functions/.env
+src/server/supabase/functions/**/.env
+# Dumps/backups locales (los backups reales viven en otro repo privado)
+backups/
+*.dump
+*.sql.gz
+
+# ─── Tests / cobertura ──────────────────────────────────────────
+coverage/
+.nyc_output/
+*.lcov
+junit.xml
+test-results/
+playwright-report/
+
+# ─── Deploy (Cloudflare Pages / Netlify / Vercel) ───────────────
+.wrangler/
+.netlify/
+.vercel/
+
+# ─── Logs ───────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ─── Caches varios ──────────────────────────────────────────────
+.cache/
+.eslintcache
+.stylelintcache
+.temp/
+.tmp/
+
+# ─── Editores / IDE ─────────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.sw?
+*~
+
+# ─── Sistema operativo ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# ─── Claude Code ────────────────────────────────────────────────
+.claude/settings.local.json

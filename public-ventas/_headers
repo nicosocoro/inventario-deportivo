@@ -1,0 +1,9 @@
+# Que el navegador siempre pida la versión nueva del service worker y del index.
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/
+  Cache-Control: no-cache
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

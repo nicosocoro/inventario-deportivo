@@ -1,0 +1,39 @@
+name: Backup semanal
+
+# Dump de la base y commit en un repo privado APARTE (los artifacts de Actions vencen).
+# Secrets del repo:
+#   SUPABASE_DB_URL     connection string del pooler (Supavisor, modo session; la conexión directa es IPv6)
+#   BACKUP_REPO         p. ej. usuario/cadb-backups (privado)
+#   BACKUP_REPO_TOKEN   token con permiso de escritura solo sobre ese repo
+on:
+  schedule:
+    - cron: '30 13 * * 1' # lunes, después del partido del domingo
+  workflow_dispatch:
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.BACKUP_REPO }}
+          token: ${{ secrets.BACKUP_REPO_TOKEN }}
+          path: backups
+      - name: Dump
+        run: |
+          stamp=$(date -u +%Y-%m-%d)
+          mkdir -p backups/dumps
+          supabase db dump --db-url "${{ secrets.SUPABASE_DB_URL }}" -f "backups/dumps/$stamp-schema.sql"
+          supabase db dump --db-url "${{ secrets.SUPABASE_DB_URL }}" --data-only --use-copy -f "backups/dumps/$stamp-data.sql"
+          gzip -9 backups/dumps/$stamp-*.sql
+      - name: Commit
+        working-directory: backups
+        run: |
+          git config user.name "cadb-backup"
+          git config user.email "cadb-backup@users.noreply.github.com"
+          git add dumps
+          git commit -m "Backup $(date -u +%Y-%m-%d)" || echo "Sin cambios"
+          git push

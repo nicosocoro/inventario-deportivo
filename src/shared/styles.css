@@ -1,0 +1,581 @@
+/* Pico CSS (tema verde) + pocas reglas propias. Pensado primero para teléfono (~360 px), con una mano. */
+@import '@picocss/pico/css/pico.green.min.css';
+
+:root {
+  --nav-h: 64px;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --pico-font-size: 106.25%;
+  --c-warn: #b45309;
+  --c-warn-bg: #fef3c7;
+  --c-err: #b91c1c;
+  --c-err-bg: #fee2e2;
+  --c-ok: #15803d;
+  --c-ok-bg: #dcfce7;
+  --c-info-bg: #e0f2fe;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Inputs >= 16px: iOS no hace zoom. */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.75rem 0.9rem calc(var(--nav-h) + var(--safe-bottom) + 1rem);
+}
+.page.with-total {
+  padding-bottom: calc(var(--nav-h) + var(--safe-bottom) + 84px);
+}
+.page h1 {
+  font-size: 1.35rem;
+  margin-bottom: 0.75rem;
+}
+.page h2 {
+  font-size: 1.1rem;
+  margin: 1.25rem 0 0.5rem;
+}
+
+/* Encabezado */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 0.5rem) 0.9rem 0.5rem;
+  background: var(--pico-background-color);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+.app-header .brand {
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+.app-header .who {
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Barra inferior */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  height: calc(var(--nav-h) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  background: var(--pico-card-background-color);
+  border-top: 1px solid var(--pico-muted-border-color);
+}
+.bottom-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: var(--pico-muted-color);
+  min-height: 48px;
+}
+.bottom-nav a .ico {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+.bottom-nav a.router-link-active {
+  color: var(--pico-primary);
+  font-weight: 600;
+}
+.bottom-nav .badge {
+  position: absolute;
+  margin-left: 22px;
+  margin-top: -18px;
+}
+@media (min-width: 900px) {
+  .bottom-nav {
+    position: sticky;
+    top: 0;
+    max-width: 960px;
+    margin: 0 auto;
+    height: 52px;
+    border: 0;
+    padding: 0;
+    grid-auto-flow: column;
+  }
+  .bottom-nav a {
+    flex-direction: row;
+    font-size: 0.95rem;
+  }
+  .page,
+  .page.with-total {
+    padding-bottom: 6rem;
+  }
+}
+
+/* Badges, chips y estados */
+.badge {
+  display: inline-block;
+  min-width: 1.25rem;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  line-height: 1.25rem;
+  text-align: center;
+  background: var(--c-err);
+  color: #fff;
+}
+.chip {
+  display: inline-block;
+  padding: 0.05rem 0.5rem;
+  margin: 0.1rem 0.15rem 0.1rem 0;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: var(--c-info-bg);
+  color: #075985;
+  white-space: nowrap;
+}
+.chip.warn {
+  background: var(--c-warn-bg);
+  color: var(--c-warn);
+}
+.chip.err {
+  background: var(--c-err-bg);
+  color: var(--c-err);
+}
+.chip.ok {
+  background: var(--c-ok-bg);
+  color: var(--c-ok);
+}
+.conn {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  border: 0;
+  margin: 0;
+  width: auto;
+}
+.conn.on {
+  background: var(--c-ok-bg);
+  color: var(--c-ok);
+}
+.conn.off {
+  background: var(--c-warn-bg);
+  color: var(--c-warn);
+}
+.muted {
+  color: var(--pico-muted-color);
+  font-size: 0.85rem;
+}
+.notice {
+  padding: 0.65rem 0.8rem;
+  border-radius: var(--pico-border-radius);
+  margin-bottom: 0.9rem;
+  font-size: 0.9rem;
+  background: var(--c-info-bg);
+}
+.notice.warn {
+  background: var(--c-warn-bg);
+}
+.notice.err {
+  background: var(--c-err-bg);
+}
+.err-text {
+  color: var(--c-err);
+  font-size: 0.9rem;
+}
+
+/* Grilla de la caja */
+.register-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+@media (min-width: 600px) {
+  .register-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 900px) {
+  .register-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+.product-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 84px;
+  margin: 0;
+  padding: 0.6rem 0.7rem;
+  text-align: left;
+  border-radius: 12px;
+  background: var(--pico-card-background-color);
+  color: var(--pico-color);
+  border: 2px solid var(--pico-muted-border-color);
+  font-weight: 600;
+  line-height: 1.2;
+  user-select: none;
+}
+.product-btn:active {
+  transform: scale(0.97);
+}
+.product-btn .price {
+  font-weight: 400;
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+}
+.product-btn.no-stock {
+  border-color: var(--c-warn);
+  border-style: dashed;
+}
+.product-btn.in-cart {
+  border-color: var(--pico-primary);
+  background: var(--pico-primary-focus);
+}
+.product-btn .count {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--pico-primary);
+  color: #fff;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Barra de total fija */
+.total-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--nav-h) + var(--safe-bottom));
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  background: var(--pico-card-background-color);
+  border-top: 1px solid var(--pico-muted-border-color);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+}
+.total-bar .summary {
+  flex: 1;
+  text-align: left;
+  margin: 0;
+  padding: 0.4rem 0.2rem;
+  background: none;
+  border: 0;
+  color: var(--pico-color);
+  font-size: 1.05rem;
+}
+.total-bar .summary strong {
+  font-size: 1.25rem;
+}
+.total-bar button.primary {
+  width: auto;
+  margin: 0;
+  min-height: 52px;
+  padding: 0 1.4rem;
+  font-size: 1.1rem;
+}
+@media (min-width: 900px) {
+  .total-bar {
+    bottom: 0;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}
+
+/* Hoja inferior */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.sheet {
+  width: 100%;
+  max-width: 600px;
+  max-height: 92dvh;
+  overflow: auto;
+  background: var(--pico-background-color);
+  border-radius: 16px 16px 0 0;
+  padding: 0.75rem 1rem calc(1rem + var(--safe-bottom));
+  animation: sheet-in 0.15s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    animation: none;
+  }
+}
+@keyframes sheet-in {
+  from {
+    transform: translateY(30px);
+    opacity: 0.6;
+  }
+}
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.sheet-head h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.sheet-head button {
+  width: auto;
+  margin: 0;
+  padding: 0.3rem 0.8rem;
+}
+
+/* Botones grandes y grupos */
+.big {
+  min-height: 52px;
+  font-size: 1.05rem;
+}
+.seg {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+.seg button {
+  margin: 0;
+  min-height: 52px;
+  padding: 0.4rem;
+}
+.seg button[aria-pressed='false'] {
+  background: transparent;
+  color: var(--pico-primary);
+}
+.row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.row > * {
+  margin-bottom: 0;
+}
+.grow {
+  flex: 1;
+}
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.actions button,
+.actions [role='button'] {
+  width: auto;
+  margin: 0;
+}
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.qty button {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+}
+.qty span {
+  min-width: 2ch;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Listas tipo tarjeta (reemplazan tablas en pantallas angostas) */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.list > li {
+  list-style: none;
+  padding: 0.7rem 0.2rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+.list .line {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+.list .line strong {
+  white-space: nowrap;
+}
+
+/* Tarjetas de números */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+@media (min-width: 700px) {
+  .stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+.stat {
+  padding: 0.7rem;
+  border-radius: 12px;
+  background: var(--pico-card-background-color);
+  border: 1px solid var(--pico-muted-border-color);
+}
+.stat .label {
+  font-size: 0.78rem;
+  color: var(--pico-muted-color);
+}
+.stat .value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.stat.neg .value {
+  color: var(--c-err);
+}
+
+details.section {
+  margin-bottom: 0.6rem;
+}
+details.section summary {
+  font-weight: 600;
+}
+table {
+  font-size: 0.9rem;
+}
+td.num,
+th.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+.menu li {
+  list-style: none;
+}
+.menu a,
+.menu button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 0.6rem 0.4rem;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  border-radius: 0;
+  background: none;
+  color: var(--pico-color);
+  text-decoration: none;
+  text-align: left;
+}
+
+/* Toasts */
+.toasts {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(env(safe-area-inset-top, 0px) + 56px);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  pointer-events: none;
+}
+.toast {
+  max-width: 92vw;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  background: #1f2937;
+  color: #fff;
+}
+.toast.ok {
+  background: var(--c-ok);
+}
+.toast.warn {
+  background: var(--c-warn);
+}
+.toast.error {
+  background: var(--c-err);
+}
+
+.install-hint {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  margin: 0;
+  border-radius: 0;
+  font-size: 0.88rem;
+}
+.install-hint ol {
+  margin: 0.4rem 0 0.2rem 1.1rem;
+  padding: 0;
+}
+.install-hint li {
+  list-style: decimal;
+}
+
+.login {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.login h1 {
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+@media print {
+  .bottom-nav,
+  .app-header,
+  .total-bar,
+  .no-print {
+    display: none !important;
+  }
+}

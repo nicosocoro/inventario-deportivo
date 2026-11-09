@@ -1,0 +1,38 @@
+# Configuración de Supabase CLI (local). Uso: npm run db:start / db:reset (requiere Docker).
+project_id = "cadb-cantina"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 17
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[studio]
+enabled = true
+port = 54323
+
+[auth]
+enabled = true
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5174"]
+# Nadie se registra solo: los usuarios los crea un admin desde el panel.
+enable_signup = false
+minimum_password_length = 8
+
+[auth.email]
+enable_signup = false
+enable_confirmations = false
+
+[functions.admin-users]
+enabled = true
+# La función valida el token ella misma (auth.getUser), compatible con las claves nuevas.
+verify_jwt = false

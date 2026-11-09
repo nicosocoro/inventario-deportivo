@@ -1,0 +1,51 @@
+{
+  "name": "cadb-cantina",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Inventario y ventas de la cantina del Club Atlético Deportivo Barreal",
+  "author": "Nicolas Socoro",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev:ventas": "vite --mode ventas",
+    "dev:admin": "vite --mode admin --port 5174",
+    "build:ventas": "vite build --mode ventas",
+    "build:admin": "vite build --mode admin",
+    "build": "npm run build:ventas && npm run build:admin",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "icons": "node scripts/gen-icons.mjs",
+    "create-owner": "tsx scripts/create-owner.ts",
+    "create-demo-users": "tsx scripts/create-demo-users.ts",
+    "db:start": "supabase start --workdir src/server",
+    "db:reset": "supabase db reset --workdir src/server",
+    "db:push": "supabase db push --workdir src/server",
+    "fn:deploy": "supabase functions deploy admin-users --workdir src/server"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@picocss/pico": "^2.1.1",
+    "@supabase/supabase-js": "^2.119.0",
+    "idb-keyval": "^6.3.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.9",
+    "vue": "^3.5.45",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.15",
+    "@types/node": "^26.6.6",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "fake-indexeddb": "^6.2.8",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.7",
+    "vite-plugin-pwa": "^2.0.0",
+    "vitest": "^5.1.0",
+    "vue-tsc": "^3.3.14",
+    "workbox-window": "^7.4.1"
+  }
+}

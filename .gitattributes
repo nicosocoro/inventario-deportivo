@@ -1,0 +1,24 @@
+# Normalizar finales de línea: LF en el repo y en el disco, en cualquier SO.
+* text=auto eol=lf
+
+# Scripts de Windows necesitan CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binarios: sin conversión ni diff de texto
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.gz    binary
+*.zip   binary
+
+# Lockfile: no mostrar diff línea a línea
+package-lock.json -diff linguist-generated
